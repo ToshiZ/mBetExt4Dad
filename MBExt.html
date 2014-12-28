@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+    <title>MT</title>
+    <!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Shortcodes -->
+    <link href="css/shortcodes.css" rel="stylesheet">
+    <!-- Main Style -->
+	
+	<link href="css/supersized.css" rel="stylesheet">
+	<link href="css/supersized.shutter.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+	 
+	 <link rel="shortcut icon" href="#">
+	 <!-- Font Icons -->
+	<link href="css/fonts.css" rel="stylesheet">
+		<!-- Responsive -->
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+<div id="top-div" class="span24">
+<div class="span24">
+	<div id="n-k-params-div" class="span2">		
+				<label>Количество выбранных игр</label>
+				<input id="n" type="text" name="n" readonly class="n-k-params" 
+					placeholder = "0" style="width:80px; background: #3C3F45; color: white"></input></br>	
+				<label>Суммарный рейтинг</label>
+				<input id="rate-sum" type="text" name="rate-sum" readonly class="n-k-params" 
+					placeholder = "0" style="width:80px; background: #3C3F45; color: white"></input>
+				<label>Логика</label>
+				<input id="logic" type="text" name="logic" class="n-k-params" 
+					placeholder = "0" style="width:80px; background: #3C3F45; color: white"></input>
+				<label>Антилогика</label>
+				<input id="anti-logic" type="text" name="anti-logic" readonly class="n-k-params" 
+					placeholder = "0" style="width:80px; background: #3C3F45; color: white"></input>
+				<label>Ставка</label>
+				<input id="coast" type="text" name="coast" class="coast" 
+					placeholder = "Сумма" style="width:80px; background: #3C3F45; color: white"></input>
+				<label>Выделение команд, мс</label>
+				<input id="markTime" type="text" name="refreshTime" class="coast" 
+					placeholder = "минимум 300" style="width:100px; background: #3C3F45; color: white"></input>
+				<label>Задержка после ставки, сек</label>
+				<input id="betTime" type="text" name="betTime" class="coast" 
+					placeholder = "минимум 5" style="width:100px; background: #3C3F45; color: white"></input>
+				<label>Обновлять через, сек</label>
+				<input id="refreshTime" type="text" name="refreshTime" class="coast" 
+					placeholder = "минимум 60" style="width:100px; background: #3C3F45; color: white"></input>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="span24" style = "margin-top:41px">
+		<div id="k-blocks-div"></div>
+		<div id="n-k-blocks-div"></div>
+	</div>
+	<div class="span24">		
+		<div class="accordion" id="accordionArea">
+			<div class="accordion-group">
+				<div class="accordion-heading accordionize">
+					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionArea" href="#oneArea">
+						Команды
+						<span class="font-icon-arrow-simple-down"></span>
+					</a>
+				</div>
+				<a id="get-teams" class="button button-large">Обновить команды</a>
+				<a id="clear" class="button button-large">Очистить</a>
+				<div id="oneArea" class="accordion-body collapse">
+					<div id="team-list" class="accordion-inner">	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	</div>
+	<div class="row"></div>
+	<div id="buttons" class="span24">
+	</div>		
+	<div class="row"></div>
+	<div id="res-col-1" class="span24">
+	</div>		
+</div>
+ <script src="js/jquery-2.1.1.js"></script>
+    <!-- Bootstrap -->   
+	<script src="js/bootstrap.min.js"></script> 
+	 <script src="js/MT.js"></script> 
+</body>
+
+</html>
