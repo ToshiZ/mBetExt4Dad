@@ -140,11 +140,19 @@ $(function () {
 								if(tdDate)
 									if(tdDate.indexOf(ticketsJson.ticket[i][j].date) != -1){
 										if(ticketsJson.ticket[i][j].bet == 1){
-											forClick.push(item.find('tr:first-child').find('td').eq(-1));
+											forClick.push(item.find('tr:first-child').find('td').eq(-10));
 											break;
 										}
-										if(ticketsJson.ticket[i][j].bet == 0){
-											forClick.push(item.find('tr:first-child').find('td').eq(-2));
+										if(ticketsJson.ticket[i][j].bet == 2){
+											forClick.push(item.find('tr:first-child').find('td').eq(-8));
+											break;
+										}
+										if(ticketsJson.ticket[i][j].bet == "1X"){
+											forClick.push(item.find('tr:first-child').find('td').eq(-7));
+											break;
+										}
+										if(ticketsJson.ticket[i][j].bet == "2X"){
+											forClick.push(item.find('tr:first-child').find('td').eq(-5));
 											break;
 										}
 									}

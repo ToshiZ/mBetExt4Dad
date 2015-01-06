@@ -153,14 +153,9 @@ $(function () {
 	$(document).on('click', "#start-but", function(){
 		var tmpObj = {};
 		tmpObj.selectedTeams = selectedTeamsJson;
-		tmpObj.plus = k_;
-		tmpObj.minus = n_k_;
-		tmpObj.plusBlocks = filter[0];
-		tmpObj.minusBlocks = filter[1];
-		tmpObj.plusWithoutBloks = $('#k-check').prop("checked");
-		tmpObj.minusWithoutBloks = $('#n-k-check').prop("checked");
+		tmpObj.logic = parseInt($("#logic").val());
 		tmpObj.coast = parseInt($('#coast').val());
-		tmpObj.who = 'mt';
+		tmpObj.who = 'mtd';
 
 		chrome.tabs.sendMessage(csId.id, {'askFor': 'tickets', 'tickets': JSON.stringify(ticketsJson), 'params': JSON.stringify(tmpObj), 'coast':  parseInt($('#coast').val()), 'betTime': parseInt($('#betTime').val()*1000), 'markTime': parseInt($('#markTime').val())});
 		localStorage.setItem('tickets', JSON.stringify(ticketsJson));
@@ -651,26 +646,28 @@ $(function () {
 			var newDiv = (i%2 == 0) ?
 			$('<div class="alert alert-error fade in span24 stp">').appendTo(newEl) :
 			$('<div class="alert alert-info fade in span24 stp">').appendTo(newEl);
-			tCont = "Билет №" + parseInt(parseInt(i)+1) + "</br>";
+			tCont = "<b>Билет №" + parseInt(parseInt(i)+1) + "</b>" + "</br>";
 			ticketsJson.ticket[i] = [];
 			for(var j = 0; j < selectedTeamsJson.team.length; j++){
-				var prName = selectedTeamsJson.team[j].name + " " + selectedTeamsJson.team[j].date;
-				if(cnk[i].indexOf(j) != -1){					
-					prName += " Ставка: " + selectedTeamsJson.team[j].fav;
-				}else{				
-					prName += " Ставка: " + parseInt(parseInt(selectedTeamsJson.team[j].fav)%2 + 1) + "X";
+				var name = selectedTeamsJson.team[j].name.split("-");
+				var prName = parseInt(j+1) + ". " ;/*+ selectedTeamsJson.team[j].name + " " + selectedTeamsJson.team[j].date;*/
+				if(cnk[i].indexOf(j) != -1){	
+					name[selectedTeamsJson.team[j].fav - 1] = '<b><font color="#333">' + name[selectedTeamsJson.team[j].fav - 1]	+ '</font></b>';			
+					prName += name[0] + " - " + name[1] + " " + selectedTeamsJson.team[j].date + "<b> | Рейтинг:</b> " + selectedTeamsJson.team[j].rate +"<b> | Ставка:</b> " + selectedTeamsJson.team[j].fav;
+				}else{	
+					name[selectedTeamsJson.team[j].fav%2] = '<b><font color="#333">' + name[selectedTeamsJson.team[j].fav%2]	+ '</font></b>';				
+					prName += name[0] + " - " + name[1] + " " + selectedTeamsJson.team[j].date + "<b> | Рейтинг:</b> " + selectedTeamsJson.team[j].rate +"<b> | Ставка:</b> " + parseInt(parseInt(selectedTeamsJson.team[j].fav)%2 + 1) + "X";
 				}
-				tCont += prName + "</br>";
+				tCont += prName + "</br>";			
 				
-				/*tCont += (arr[i][j] == 1) ? (prName + "	+" + "</br>") : (prName + "	-" + "</br>");
 				var obj = {};
 				obj['name'] =  selectedTeamsJson.team[j].name;	
 				obj['date'] =  selectedTeamsJson.team[j].date;		
-				obj['bet'] =  arr[i][j];	
-				ticketsJson.ticket[i][j] = obj;*/
+				obj['bet'] =  cnk[i].indexOf(j) != -1 ? selectedTeamsJson.team[j].fav: parseInt(parseInt(selectedTeamsJson.team[j].fav)%2 + 1) + "X";	
+				ticketsJson.ticket[i][j] = obj;
 			}				
 			newDiv.html(tCont);				
 		}
-		//localStorage.setItem('tickets', JSON.stringify(ticketsJson));
+		localStorage.setItem('tickets', JSON.stringify(ticketsJson));
 	}	
 });
