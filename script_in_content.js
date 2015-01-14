@@ -79,9 +79,10 @@ $(function () {
 							$('a.but-remove')[0].click();
 						clickEnter();	
 						if(i < ticketsJson.ticket.length){
-							setTimeout(function(){
+							betTicket();
+							/*setTimeout(function(){
 									betTicket();
-								}, 500);
+								}, 500);*/
 						}else{
 							localStorage.setItem('finish', 1);
 							clickEnter();
@@ -113,9 +114,10 @@ $(function () {
 							chrome.runtime.sendMessage({askFor: 'ticketError', "errorInfo": JSON.stringify(obj)});
 							clickEnter();
 							if(i < ticketsJson.ticket.length){
-								setTimeout(function(){
+								betTicket();
+								/*setTimeout(function(){
 										betTicket();
-									}, 500);
+									}, 500);*/
 							}else{
 								localStorage.setItem('finish', 1);
 								clickEnter();
@@ -123,12 +125,13 @@ $(function () {
 						}
 					}						
 				}else
-					setTimeout(function(){
+					betTicket();
+					/*setTimeout(function(){
 							betTicket();
-						}, 500);
+						}, 500);*/
 				
-			}, 2000);
-		}
+				}, betTime/2);
+			}
 			function betTicket(){
 				var forClick = [];
 				if($('a.but-remove').length != 0)
@@ -164,21 +167,29 @@ $(function () {
 					function markTeams(){
 						var self = forClick[it];
 						var markTeamsTimer = setTimeout(function(){
-								$(self).click();
-								if(it < forClick.length){
-									it++;
-									markTeams();
-								}
-								else{
-									$('#button_accumulator')[0].click();
-									setTimeout(function(){
-										setCoast(coast);},1000);
-								}
+								if(!pauseFl){
+									$(self).click();
+									if(it < forClick.length){
+										it++;
+										markTeams();
+									}
+									else{
+										$('#button_accumulator')[0].click();
+										setCoast(coast);
+										/*setTimeout(function(){
+											setCoast(coast);},1000);*/
+									}
+							}
 							},markTime);
 					}
 					function setCoast(coast){
-						if(!pauseFl)
-							enterCoast();
+							setTimeout(function(){
+								if(parseInt($('#betslip_button').text().split(" ")[1]) == ticketsJson.ticket[i].length)
+									enterCoast();
+								else
+									betTicket();
+							},1000);
+						
 					}
 					
 			}
@@ -191,17 +202,17 @@ $(function () {
 								$('.stake.stake-input.js-focusable[name = stake]').val(coast);
 								$('.stake.stake-input.js-focusable[name = stake]')[0].dispatchEvent(evt);	
 								clickBet();
-							}, 500);
+							}, 1000);
 		}
 			clickBet = function(){setTimeout(function(){
-								if($('.but-place-bet').length != 0){
+								if($('.but-place-bet').length != 0 && $('#button_accumulator.active').length != 0){
 									$('.but-place-bet')[0].click();
 									i++;
 									localStorage.setItem('currentBet', i);
 									setBets();
 								}else
-									setBets();
-						}, betTime);
+									betTicket();
+						}, betTime/2);
 		}
 		chrome.runtime.onMessage.addListener(
 			 function(request, sender, sendResponse) {				
